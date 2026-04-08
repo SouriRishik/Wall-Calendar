@@ -134,6 +134,8 @@
   display: flex;
   justify-content: flex-end;
   margin-top: var(--space-xs);
+  position: relative;
+  z-index: 30;
 }
 
 .note-delete-btn {
@@ -146,6 +148,9 @@
   padding: 4px 8px;
   cursor: pointer;
   transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+  position: relative;
+  z-index: 31;
+  touch-action: manipulation;
 }
 
 .note-delete-btn:hover:not(:disabled) {
@@ -190,6 +195,7 @@
   gap: var(--space-xs);
   font-size: 0.76rem;
   color: var(--text-secondary);
+  position: relative;
 }
 
 .month-date-note-day {
@@ -221,6 +227,9 @@
   padding: 2px 7px;
   cursor: pointer;
   transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+  position: relative;
+  z-index: 31;
+  touch-action: manipulation;
 }
 
 .month-date-note-delete:hover {
@@ -271,5 +280,15 @@
 
   .month-date-notes-list {
     max-height: 110px;
+  }
+
+  .note-delete-btn {
+    min-height: 34px;
+    padding: 6px 10px;
+  }
+
+  .month-date-note-delete {
+    min-height: 28px;
+    padding: 3px 8px;
   }
 }
