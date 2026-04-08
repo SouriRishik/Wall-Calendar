@@ -41,7 +41,6 @@ export default function CalendarApp() {
   const [theme, setTheme] = useState('light');
   const [mounted, setMounted] = useState(false);
   const [showYearView, setShowYearView] = useState(false);
-  const [confetti, setConfetti] = useState([]);
   const [flipPhase, setFlipPhase] = useState('');
   const [flipDirection, setFlipDirection] = useState('next');
   const flipTimersRef = useRef([]);
@@ -308,19 +307,6 @@ export default function CalendarApp() {
     [endManualCornerFlip]
   );
 
-  const triggerConfetti = useCallback(() => {
-    const particles = Array.from({ length: 30 }, (_, i) => ({
-      id: Date.now() + i,
-      x: Math.random() * 100,
-      delay: Math.random() * 0.5,
-      color: ['#2c7be5', '#00d2d3', '#fdcb6e', '#ff6b6b', '#00b894', '#e17055', '#6c5ce7'][Math.floor(Math.random() * 7)],
-      size: Math.random() * 6 + 4,
-      duration: Math.random() * 1 + 1.5,
-    }));
-    setConfetti(particles);
-    setTimeout(() => setConfetti([]), 2500);
-  }, []);
-
   const handleDateClick = useCallback(
     (date) => {
       if (!rangeStart) {
@@ -337,7 +323,6 @@ export default function CalendarApp() {
         } else {
           setRangeEnd(date);
         }
-        triggerConfetti();
       } else {
         if (isSameDay(date, rangeEnd)) {
           setRangeEnd(null);
@@ -347,7 +332,7 @@ export default function CalendarApp() {
         setRangeEnd(null);
       }
     },
-    [rangeStart, rangeEnd, triggerConfetti]
+    [rangeStart, rangeEnd]
   );
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
@@ -421,26 +406,6 @@ export default function CalendarApp() {
 
   return (
     <div className="calendar-page">
-      
-      {confetti.length > 0 && (
-        <div className="confetti-container" aria-hidden="true">
-          {confetti.map((p) => (
-            <div
-              key={p.id}
-              className="confetti-particle"
-              style={{
-                left: `${p.x}%`,
-                animationDelay: `${p.delay}s`,
-                animationDuration: `${p.duration}s`,
-                backgroundColor: p.color,
-                width: `${p.size}px`,
-                height: `${p.size}px`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
       
       <div className="top-bar">
         <button
